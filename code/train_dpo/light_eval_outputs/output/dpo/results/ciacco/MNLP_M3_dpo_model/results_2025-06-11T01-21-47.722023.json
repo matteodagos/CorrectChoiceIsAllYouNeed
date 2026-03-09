@@ -1,0 +1,116 @@
+{
+  "config_general": {
+    "lighteval_sha": "564ffe324ee8de9c0de34e232380a9307c5e5303",
+    "num_fewshot_seeds": 1,
+    "override_batch_size": 1,
+    "max_samples": null,
+    "job_id": 0,
+    "start_time": 1676507.621864861,
+    "end_time": 1676782.168381873,
+    "total_evaluation_time_secondes": "274.54651701194234",
+    "model_name": "ciacco/MNLP_M3_dpo_model",
+    "model_sha": "dbb41514d40096e55d4402f01cde29740c233520",
+    "model_dtype": "torch.float16",
+    "model_size": "1.11 GB",
+    "generation_parameters": {
+      "early_stopping": null,
+      "repetition_penalty": null,
+      "frequency_penalty": null,
+      "length_penalty": null,
+      "presence_penalty": null,
+      "max_new_tokens": null,
+      "min_new_tokens": null,
+      "seed": null,
+      "stop_tokens": null,
+      "temperature": 0.0,
+      "top_k": null,
+      "min_p": null,
+      "top_p": null,
+      "truncate_prompt": null,
+      "response_format": null
+    }
+  },
+  "results": {
+    "community|mnlp_dpo_evals|0": {
+      "reward_acc": 0.5725293132328308,
+      "reward_acc_stderr": 0.009056338017369025
+    },
+    "all": {
+      "reward_acc": 0.5725293132328308,
+      "reward_acc_stderr": 0.009056338017369025
+    }
+  },
+  "versions": {
+    "community|mnlp_dpo_evals|0": 0
+  },
+  "config_tasks": {
+    "community|mnlp_dpo_evals": {
+      "name": "mnlp_dpo_evals",
+      "prompt_function": "preference_pair",
+      "hf_repo": "allenai/reward-bench",
+      "hf_subset": "",
+      "metric": [
+        {
+          "metric_name": "reward_acc",
+          "higher_is_better": true,
+          "category": "11",
+          "use_case": "1",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "filtered"
+      ],
+      "trust_dataset": true,
+      "limited_num_samples": 0,
+      "evaluation_splits": [
+        "filtered"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": -1,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "community"
+      ],
+      "original_num_docs": 2985,
+      "effective_num_docs": 2985,
+      "must_remove_duplicate_docs": false,
+      "version": 0
+    }
+  },
+  "summary_tasks": {
+    "community|mnlp_dpo_evals|0": {
+      "hashes": {
+        "hash_examples": "84e087dea95643be",
+        "hash_full_prompts": "84e087dea95643be",
+        "hash_input_tokens": "778ffd322e9bb2bd",
+        "hash_cont_tokens": "778ffd322e9bb2bd"
+      },
+      "truncated": 0,
+      "non_truncated": 2985,
+      "padded": 0,
+      "non_padded": 2985,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    }
+  },
+  "summary_general": {
+    "hashes": {
+      "hash_examples": "aedd7a5f311203d9",
+      "hash_full_prompts": "aedd7a5f311203d9",
+      "hash_input_tokens": "e8aa9000bdf9d74d",
+      "hash_cont_tokens": "e8aa9000bdf9d74d"
+    },
+    "truncated": 0,
+    "non_truncated": 2985,
+    "padded": 0,
+    "non_padded": 2985,
+    "num_truncated_few_shots": 0
+  }
+}

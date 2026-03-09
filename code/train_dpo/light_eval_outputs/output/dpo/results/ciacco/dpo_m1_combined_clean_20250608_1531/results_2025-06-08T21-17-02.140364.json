@@ -1,0 +1,116 @@
+{
+  "config_general": {
+    "lighteval_sha": "564ffe324ee8de9c0de34e232380a9307c5e5303",
+    "num_fewshot_seeds": 1,
+    "override_batch_size": 1,
+    "max_samples": null,
+    "job_id": 0,
+    "start_time": 1489057.850452739,
+    "end_time": 1489272.163925716,
+    "total_evaluation_time_secondes": "214.3134729769081",
+    "model_name": "ciacco/dpo_m1_combined_clean_20250608_1531",
+    "model_sha": "826dd299a48537307bc3968905164181e0838c66",
+    "model_dtype": "torch.float16",
+    "model_size": "1.11 GB",
+    "generation_parameters": {
+      "early_stopping": null,
+      "repetition_penalty": null,
+      "frequency_penalty": null,
+      "length_penalty": null,
+      "presence_penalty": null,
+      "max_new_tokens": null,
+      "min_new_tokens": null,
+      "seed": null,
+      "stop_tokens": null,
+      "temperature": 0.0,
+      "top_k": null,
+      "min_p": null,
+      "top_p": null,
+      "truncate_prompt": null,
+      "response_format": null
+    }
+  },
+  "results": {
+    "community|mnlp_dpo_evals|0": {
+      "reward_acc": 0.5389425810119386,
+      "reward_acc_stderr": 0.011888835581389076
+    },
+    "all": {
+      "reward_acc": 0.5389425810119386,
+      "reward_acc_stderr": 0.011888835581389076
+    }
+  },
+  "versions": {
+    "community|mnlp_dpo_evals|0": 0
+  },
+  "config_tasks": {
+    "community|mnlp_dpo_evals": {
+      "name": "mnlp_dpo_evals",
+      "prompt_function": "preference_pair",
+      "hf_repo": "ciacco/m1_dpo_combined_splits_20250608_1529",
+      "hf_subset": "",
+      "metric": [
+        {
+          "metric_name": "reward_acc",
+          "higher_is_better": true,
+          "category": "11",
+          "use_case": "1",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "test"
+      ],
+      "trust_dataset": true,
+      "limited_num_samples": 0,
+      "evaluation_splits": [
+        "eval"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": -1,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "community"
+      ],
+      "original_num_docs": 1759,
+      "effective_num_docs": 1759,
+      "must_remove_duplicate_docs": false,
+      "version": 0
+    }
+  },
+  "summary_tasks": {
+    "community|mnlp_dpo_evals|0": {
+      "hashes": {
+        "hash_examples": "2b9c164e6418d3da",
+        "hash_full_prompts": "5899b764836cf67b",
+        "hash_input_tokens": "120f7e5dadf07551",
+        "hash_cont_tokens": "120f7e5dadf07551"
+      },
+      "truncated": 0,
+      "non_truncated": 1759,
+      "padded": 0,
+      "non_padded": 1759,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    }
+  },
+  "summary_general": {
+    "hashes": {
+      "hash_examples": "c97e09a26790fb87",
+      "hash_full_prompts": "62c5893181493499",
+      "hash_input_tokens": "c3f7a0c45eca5e6c",
+      "hash_cont_tokens": "c3f7a0c45eca5e6c"
+    },
+    "truncated": 0,
+    "non_truncated": 1759,
+    "padded": 0,
+    "non_padded": 1759,
+    "num_truncated_few_shots": 0
+  }
+}

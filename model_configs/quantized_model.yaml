@@ -1,0 +1,33 @@
+model:
+  base_params:
+    # Change this to your own model name on huggingface hub
+    model_args: "pretrained=sajal09/MNLP_M3_quantized_model,revision=main"
+
+    # (Optional) If you want to use a chat template, set "use_chat_template" to true.
+    # (Optional) However, you must ensure that the chat template is saved in the model checkpoint.
+    use_chat_template: false
+
+    # If your model already has a quantization config as part of the model config, specify this as "none".
+    # Otherwise. specify the model to be loaded in 4 bit. The other option is to use "8bit" quantization.
+    # If you quantized your model using the `optimum` library, set this to the precision that matches your quantization.
+    # For example, if you quantized your model to 4 bit with optimum, set this to "4bit".
+    dtype: "none"
+
+    # If you quantized your model using the `optimum` library, you have to set this to true.
+    load_in_optimum: false
+
+    ########### An example of a quantized model that has been quantized using the `optimum` library. ###########
+    # model_args: "pretrained=zechen-nlp/Qwen3-0.6B-Base-quanto-4bit,revision=main"
+    # dtype: "4bit"
+    # load_in_optimum: true
+    ############################################################################################################
+
+    compile: false
+
+  # Ignore this section, do not modify!
+  merged_weights:
+    delta_weights: false
+    adapter_weights: false
+    base_model: null
+  generation:
+    temperature: 0.0

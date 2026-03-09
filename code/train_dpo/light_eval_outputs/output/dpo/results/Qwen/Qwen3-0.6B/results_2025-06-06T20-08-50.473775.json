@@ -1,0 +1,116 @@
+{
+  "config_general": {
+    "lighteval_sha": "564ffe324ee8de9c0de34e232380a9307c5e5303",
+    "num_fewshot_seeds": 1,
+    "override_batch_size": 1,
+    "max_samples": null,
+    "job_id": 0,
+    "start_time": 1230282.906398474,
+    "end_time": 1230325.387770977,
+    "total_evaluation_time_secondes": "42.4813725030981",
+    "model_name": "Qwen/Qwen3-0.6B",
+    "model_sha": "e6de91484c29aa9480d55605af694f39b081c455",
+    "model_dtype": "torch.float16",
+    "model_size": "1.11 GB",
+    "generation_parameters": {
+      "early_stopping": null,
+      "repetition_penalty": null,
+      "frequency_penalty": null,
+      "length_penalty": null,
+      "presence_penalty": null,
+      "max_new_tokens": null,
+      "min_new_tokens": null,
+      "seed": null,
+      "stop_tokens": null,
+      "temperature": 0.0,
+      "top_k": null,
+      "min_p": null,
+      "top_p": null,
+      "truncate_prompt": null,
+      "response_format": null
+    }
+  },
+  "results": {
+    "community|mnlp_dpo_evals|0": {
+      "reward_acc": 0.7,
+      "reward_acc_stderr": 0.15275252316519466
+    },
+    "all": {
+      "reward_acc": 0.7,
+      "reward_acc_stderr": 0.15275252316519466
+    }
+  },
+  "versions": {
+    "community|mnlp_dpo_evals|0": 0
+  },
+  "config_tasks": {
+    "community|mnlp_dpo_evals": {
+      "name": "mnlp_dpo_evals",
+      "prompt_function": "preference_pair",
+      "hf_repo": "zechen-nlp/MNLP_dpo_demo",
+      "hf_subset": "",
+      "metric": [
+        {
+          "metric_name": "reward_acc",
+          "higher_is_better": true,
+          "category": "11",
+          "use_case": "1",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "test"
+      ],
+      "trust_dataset": true,
+      "limited_num_samples": 10,
+      "evaluation_splits": [
+        "test"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": -1,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "community"
+      ],
+      "original_num_docs": 10,
+      "effective_num_docs": 10,
+      "must_remove_duplicate_docs": false,
+      "version": 0
+    }
+  },
+  "summary_tasks": {
+    "community|mnlp_dpo_evals|0": {
+      "hashes": {
+        "hash_examples": "6a28c4f06de4e156",
+        "hash_full_prompts": "864c1070d4ea910c",
+        "hash_input_tokens": "00ad12b490ec6dcb",
+        "hash_cont_tokens": "00ad12b490ec6dcb"
+      },
+      "truncated": 0,
+      "non_truncated": 10,
+      "padded": 0,
+      "non_padded": 10,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    }
+  },
+  "summary_general": {
+    "hashes": {
+      "hash_examples": "176dfbdad7356143",
+      "hash_full_prompts": "f861c48d35859937",
+      "hash_input_tokens": "d66b340f2e777579",
+      "hash_cont_tokens": "d66b340f2e777579"
+    },
+    "truncated": 0,
+    "non_truncated": 10,
+    "padded": 0,
+    "non_padded": 10,
+    "num_truncated_few_shots": 0
+  }
+}

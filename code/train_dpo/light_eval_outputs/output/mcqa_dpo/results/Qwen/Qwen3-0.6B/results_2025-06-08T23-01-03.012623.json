@@ -1,0 +1,128 @@
+{
+  "config_general": {
+    "lighteval_sha": "564ffe324ee8de9c0de34e232380a9307c5e5303",
+    "num_fewshot_seeds": 1,
+    "override_batch_size": 1,
+    "max_samples": null,
+    "job_id": 0,
+    "start_time": 1495495.054297019,
+    "end_time": 1495513.036730251,
+    "total_evaluation_time_secondes": "17.982433232013136",
+    "model_name": "Qwen/Qwen3-0.6B",
+    "model_sha": "e6de91484c29aa9480d55605af694f39b081c455",
+    "model_dtype": "torch.float16",
+    "model_size": "1.11 GB",
+    "generation_parameters": {
+      "early_stopping": null,
+      "repetition_penalty": null,
+      "frequency_penalty": null,
+      "length_penalty": null,
+      "presence_penalty": null,
+      "max_new_tokens": null,
+      "min_new_tokens": null,
+      "seed": null,
+      "stop_tokens": null,
+      "temperature": 0.0,
+      "top_k": null,
+      "min_p": null,
+      "top_p": null,
+      "truncate_prompt": null,
+      "response_format": null
+    }
+  },
+  "results": {
+    "community|mnlp_mcqa_evals|0": {
+      "acc": 0.2,
+      "acc_stderr": 0.04500351603704092,
+      "acc_norm": 0.375,
+      "acc_norm_stderr": 0.05446808379132438
+    },
+    "all": {
+      "acc": 0.2,
+      "acc_stderr": 0.04500351603704092,
+      "acc_norm": 0.375,
+      "acc_norm_stderr": 0.05446808379132438
+    }
+  },
+  "versions": {
+    "community|mnlp_mcqa_evals|0": 0
+  },
+  "config_tasks": {
+    "community|mnlp_mcqa_evals": {
+      "name": "mnlp_mcqa_evals",
+      "prompt_function": "mmlu_harness",
+      "hf_repo": "matteodagos/EPFL_MCQs",
+      "hf_subset": "",
+      "metric": [
+        {
+          "metric_name": "acc",
+          "higher_is_better": true,
+          "category": "8",
+          "use_case": "1",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "acc_norm",
+          "higher_is_better": true,
+          "category": "8",
+          "use_case": "1",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "test"
+      ],
+      "trust_dataset": true,
+      "limited_num_samples": 0,
+      "evaluation_splits": [
+        "test"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": -1,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "community"
+      ],
+      "original_num_docs": 80,
+      "effective_num_docs": 80,
+      "must_remove_duplicate_docs": false,
+      "version": 0
+    }
+  },
+  "summary_tasks": {
+    "community|mnlp_mcqa_evals|0": {
+      "hashes": {
+        "hash_examples": "2a046e6d3872f07c",
+        "hash_full_prompts": "0a8fc13b26da51e1",
+        "hash_input_tokens": "ab8feb91d94ae87a",
+        "hash_cont_tokens": "0c8e83a6d31e8ab0"
+      },
+      "truncated": 0,
+      "non_truncated": 80,
+      "padded": 343,
+      "non_padded": 11,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    }
+  },
+  "summary_general": {
+    "hashes": {
+      "hash_examples": "f3714cd40b9fb294",
+      "hash_full_prompts": "be8ab5d390e5aebd",
+      "hash_input_tokens": "c260874748e49448",
+      "hash_cont_tokens": "0856e9d9190ef3fa"
+    },
+    "truncated": 0,
+    "non_truncated": 80,
+    "padded": 343,
+    "non_padded": 11,
+    "num_truncated_few_shots": 0
+  }
+}
