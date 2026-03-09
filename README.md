@@ -1,32 +1,34 @@
 # Correct Choice Is All You Need
-### A Compact EPFL-Specialized MCQA Tutor Based on Qwen3-0.6B
+### MCQA Fine-Tuning Pipeline for an EPFL-Specialized Tutor Based on Qwen3-0.6B
 
-> Fine-tuning, preference alignment, quantization, and RAG-augmented inference for multiple-choice question answering in advanced STEM courses.
+> My contribution to the group project: data collection, dataset curation, and supervised fine-tuning of a compact STEM multiple-choice question answering model.
+
+> The full project (DPO, Quantization, RAG) is documented in the [paper](./Intelligent_Agents.pdf).
 
 ---
 
-## Overview
+## My Contribution
 
-This project transforms the open-source **Qwen3-0.6B-Base** model into a lightweight EPFL-style academic tutor capable of answering multiple-choice STEM questions. The full pipeline covers:
+This repository covers **my personal share** of the group project for the EPFL Intelligent Agents course:
 
-1. **Supervised Fine-Tuning (SFT)** on a curated 27k-item English MCQA mixture
-2. **Direct Preference Optimisation (DPO)** on 37.5k answer pairs for cleaner, pedagogically aligned outputs
-3. **Post-Training Quantization** (SmoothQuant + GPTQ) compressing the model to a ~510 MB W4A8 checkpoint
-4. **Retrieval-Augmented Generation (RAG)** with multiple STEM corpora and embedding models
+- **Data retrieval & cleaning** — parsing and normalising three question banks (Canterbury CS, NLP4Education, EPFL M1 open-answer data) and assembling the final training/validation/test mixtures
+- **SFT training** — full fine-tuning of `Qwen3-0.6B-Base` on a curated 27k-item MCQA mixture using the Unsloth + TRL stack
+- **Benchmark generation** — building and uploading the evaluation splits to HuggingFace
+- **Report writing** — sections on data, training, and results
 
-The SFT checkpoint raises normalised multi-token accuracy on the hidden `M3_TEST` set from **56.8% → 64.5%** (+7.7 pp) over the base model. DPO adds ~1 pp. The quantized model fits on student hardware with only a ~9% accuracy drop.
+The other components of the full pipeline (DPO by Jacopo, Quantization by Sajal, RAG by Michele) are not included here.
 
 ---
 
 ## Results
 
+My SFT checkpoint raises normalised multi-token accuracy on the hidden `M3_TEST` set from **56.8% → 64.5%** (+7.7 pp) over the base model, with similar gains on two out-of-domain splits.
+
 | Model | M3\_test | M3\_NLP4Education | M3\_Canterbury Code |
 |---|---|---|---|
-| Qwen3-0.6B-Base | 0.5676 | 0.4140 | 0.3592 |
-| Qwen3-1.7B-Base | 0.7154 | 0.4938 | 0.4933 |
-| **M3\_mcqa\_model (ours)** | **0.6445** | **0.4763** | **0.4188** |
-| M3\_quantized\_model | 0.5527 | 0.4002 | 0.3487 |
-| M3\_mcqa\_model + RAG | 0.6350 | 0.4730 | 0.4277 |
+| Qwen3-0.6B-Base (baseline) | 0.5676 | 0.4140 | 0.3592 |
+| Qwen3-1.7B-Base (baseline) | 0.7154 | 0.4938 | 0.4933 |
+| **M3\_mcqa\_model (mine)** | **0.6445** | **0.4763** | **0.4188** |
 
 *Multi-token normalised accuracy (acc\_norm)*
 
@@ -36,16 +38,21 @@ The SFT checkpoint raises normalised multi-token accuracy on the hidden `M3_TEST
 
 ```
 .
-├── clean_canterbury.py          # Parse & upload Canterbury CS questionbank to HF
-├── clean_nlp4education.py       # Parse & upload NLP4Education MCQs to HF
-├── clean_M1_data.py             # Clean M1 EPFL open-answer data with GPT-assisted rationales
-├── upload_M3_dataset_train.py   # Build & upload the MCQA training mixture to HF
-├── upload_M3_dataset_validation.py  # Build & upload the validation mixture to HF
-├── upload_M3_test.py            # Build & upload the test split to HF
-├── train_mcqa_model.py          # Full SFT training loop (Unsloth + TRL)
-├── train_mcqa.sh                # End-to-end shell script: venv setup → train
-├── mcqa_model.yaml              # LightEval config pointing to the HF model checkpoint
-└── requirements.txt             # Full dependency list
+├── Intelligent_Agents.pdf           # Full group project report
+│
+├── Data cleaning & upload
+│   ├── clean_canterbury.py          # Parse & upload Canterbury CS questionbank to HF
+│   ├── clean_nlp4education.py       # Parse & upload NLP4Education MCQs to HF
+│   ├── clean_M1_data.py             # Clean M1 EPFL open-answer data with GPT-assisted rationales
+│   ├── upload_M3_dataset_train.py   # Build & upload the MCQA training mixture to HF
+│   ├── upload_M3_dataset_validation.py  # Build & upload the validation mixture to HF
+│   └── upload_M3_test.py            # Build & upload the test split to HF
+│
+└── Training
+    ├── train_mcqa_model.py          # Full SFT training loop (Unsloth + TRL)
+    ├── train_mcqa.sh                # End-to-end shell script: venv setup → train
+    ├── mcqa_model.yaml              # LightEval config pointing to the HF model checkpoint
+    └── requirements.txt             # Full dependency list
 ```
 
 ---
@@ -135,54 +142,28 @@ At inference, all choices are scored in parallel via their total log-probability
 
 ---
 
-## Quantization
-
-Post-training quantization is applied to the final SFT checkpoint using [LLM Compressor](https://github.com/vllm-project/llm-compressor):
-
-- **SmoothQuant** (smoothing strength 0.7): transfers quantization difficulty from activations to weights
-- **GPTQ**: W4 INT Static Symmetric Channel + A8 INT Dynamic Symmetric Token
-- **Result**: ~510 MB checkpoint, ~9% accuracy drop vs. the full-precision model
-
-The `lm_head` layer is intentionally left unquantized to preserve output reliability.
-
----
-
-## RAG
-
-The retrieval module indexes STEM-centric corpora (ArXiv MNLP, MIT Lectures, OpenStax, WIKI-STEM, a cyber-security book) into IVF-PQ indices. At inference, top-20 chunks are retrieved and concatenated with the question before being passed to the frozen MCQA model.
-
-**Key finding:** Swapping the default `all-MiniLM-L12-v2` retriever for **LaBSE** yields a consistent +0.3–1.2 pp gain across all splits at zero training cost, attributed to LaBSE's stronger handling of technical jargon.
-
----
-
-## DPO
-
-Direct Preference Optimisation trains on 37.5k triplets `{question, chosen_answer, rejected_answer}` using Unsloth LoRA (rank 16) for two epochs. Interpolating the DPO weights with the SFT checkpoint at α = 0.5 gives the best combined accuracy (0.648 on `M3_test`).
-
----
-
 ## Model Checkpoint
 
 The trained model is available on HuggingFace: [`matteodagos/MNLP_M3_mcqa_model`](https://huggingface.co/matteodagos/MNLP_M3_mcqa_model)
 
 ---
 
-## Authors
+## Full Project & Team
 
-| Name | Email |
-|---|---|
-| Matteo D'Agostino | matteo.dagostino@epfl.ch |
-| Sajal Chaurasia | sajal.chaurasia@epfl.ch |
-| Michele Smaldone | michele.smaldone@epfl.ch |
-| Jacopo Ferro | jacopo.ferro@epfl.ch |
+This repo is part of a larger group project. The complete pipeline also includes DPO, Quantization, and RAG modules developed by my teammates.
+
+| Name | Contribution | Email |
+|---|---|---|
+| **Matteo D'Agostino** | **Data, SFT training, benchmarks** | matteo.dagostino@epfl.ch |
+| Sajal Chaurasia | Quantization | sajal.chaurasia@epfl.ch |
+| Michele Smaldone | RAG | michele.smaldone@epfl.ch |
+| Jacopo Ferro | DPO | jacopo.ferro@epfl.ch |
 
 *EPFL — Intelligent Agents course project*
 
 ---
 
 ## Citation
-
-If you use this work, please cite the accompanying report:
 
 ```
 @misc{dagostino2025correctchoice,
