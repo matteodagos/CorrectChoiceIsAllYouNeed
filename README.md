@@ -3,7 +3,7 @@
 
 > My contribution to the group project: data collection, dataset curation, and supervised fine-tuning of a compact STEM multiple-choice question answering model.
 
-> The full project (DPO, Quantization, RAG) is documented in the [paper](./Intelligent_Agents.pdf).
+> The full project (DPO, Quantization, RAG) is documented in the [paper](.pdf/Intelligent_Agents.pdf).
 
 ---
 
